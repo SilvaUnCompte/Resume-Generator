@@ -1,0 +1,260 @@
+/* ===========================================
+   Resume STYLES
+   Styles for the Resume preview rendering
+   =========================================== */
+
+/* Resume Container */
+.resume-container {
+  width: 210mm;
+  height: 297mm;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: "Arial", sans-serif;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+/* Header */
+.resume-header {
+  padding: 30px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.resume-header-left h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.resume-header-left h2 {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.resume-header-right {
+  text-align: right;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* Intro */
+.resume-intro {
+  padding: 20px 40px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+/* Body columns */
+.resume-body {
+  display: flex;
+  flex: 1;
+  position: relative;
+  overflow: visible;
+  min-height: 0;
+}
+
+.resume-left {
+  padding: 30px 20px 30px 40px;
+  overflow: visible;
+}
+
+.resume-right {
+  padding: 30px 40px 30px 20px;
+  overflow: visible;
+}
+
+/* Separator line between columns */
+.resume-separator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  z-index: 1;
+}
+
+/* Sections */
+.resume-section {
+  margin-bottom: 25px;
+}
+
+.resume-section h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid currentColor;
+}
+
+/* Skills */
+.skill-group {
+  margin-bottom: 15px;
+}
+
+.skill-group-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.skill-item-display {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.skill-icons {
+  display: flex;
+  gap: 4px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.skill-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  object-fit: contain;
+}
+
+.skill-dots {
+  flex: 1;
+  border-bottom: 2px dotted currentColor;
+  opacity: 0.5;
+  margin: 0 8px;
+  min-width: 20px;
+}
+
+.skill-name {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Interests */
+.interest-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.interest-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.interest-content h4 {
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.interest-content p {
+  font-size: 13px;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Timeline (Education & Experience) */
+.timeline-item {
+  position: relative;
+  padding-left: 45px;
+  margin-bottom: 15px;
+}
+
+.timeline-icon {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 35px;
+  height: 100%;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 17px;
+  top: 20px;
+  width: 2px;
+  bottom: -15px;
+}
+
+.timeline-circle {
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border: 3px solid currentColor;
+  border-radius: 50%;
+  position: absolute;
+  left: 9px;
+  top: 2px;
+}
+
+.timeline-content h4 {
+  font-size: 15px;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+.timeline-content p {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Footer */
+.resume-footer {
+  text-align: center;
+  padding: 15px;
+  font-size: 14px;
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+/* Page limit indicators */
+.resume-page-limit-line {
+  position: absolute;
+  top: 297mm;
+  left: -10px;
+  right: -10px;
+  height: 0;
+  border-top: 2px dashed #e74c3c;
+  z-index: 11;
+}
+
+.resume-page-limit-label {
+  position: absolute;
+  top: 297mm;
+  right: -10px;
+  transform: translateY(-100%);
+  background-color: #e74c3c;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px 3px 0 0;
+  z-index: 12;
+}
+
+.resume-overflow-indicator {
+  position: absolute;
+  top: 297mm;
+  left: 0;
+  right: 0;
+  height: 10mm;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.1),
+    rgba(255, 0, 0, 0.1) 10px,
+    rgba(255, 0, 0, 0.2) 10px,
+    rgba(255, 0, 0, 0.2) 20px
+  );
+  border-top: 3px dashed #e74c3c;
+  pointer-events: none;
+  z-index: 10;
+}
