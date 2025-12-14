@@ -79,7 +79,7 @@ function updatePreview() {
  * Build header HTML
  */
 function buildHeader() {
-  const hasContactInfo = state.email || state.phone || state.address
+  const hasContactInfo = state.email || state.phone || state.address || state.linkedin
 
   if (state.firstName || state.lastName || state.jobTitle || hasContactInfo) {
     return `
@@ -95,6 +95,7 @@ function buildHeader() {
                         ${state.address ? `<div>📍 ${state.address}</div>` : ""}
                         ${state.email ? `<div>✉ ${state.email}</div>` : ""}
                         ${state.phone ? `<div>📞 ${state.phone}</div>` : ""}
+                        ${state.linkedin ? `<div>🔗 ${state.linkedin}</div>` : ""}
                     </div>
                 `
                     : ""
