@@ -2,6 +2,10 @@
 
 Browser-based resume builder (HTML/CSS/JS only) with live preview, PDF and JSON export, and English/French support.
 
+![illustration](images/illustration.png)
+
+https://silvauncompte.github.io/Resume-Generator/
+
 ## Features
 - Edit personal info, introduction, skills (groups + icons), interests, education, and experience.
 - Customize colors, column balance, and font size.
@@ -49,3 +53,6 @@ Browser-based resume builder (HTML/CSS/JS only) with live preview, PDF and JSON 
 
 ## License
 Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0): you may use and modify the project, but commercial use is not permitted. See https://creativecommons.org/licenses/by-nc/4.0/
+
+## Notes
+Not preperly adapted for phone devices
