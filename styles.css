@@ -339,8 +339,8 @@ body {
 
 /* Removed .fit-warning since auto-size is removed */
 
-/* CV Styles - Updated for proper scaling */
-.cv-container {
+/* Resume Styles - Updated for proper scaling */
+.resume-container {
   width: 210mm;
   height: 297mm; /* Set exact A4 height instead of min-height */
   background-color: white;
@@ -352,12 +352,53 @@ body {
   overflow: visible; /* Allow overflow to be visible outside the page */
 }
 
-.cv-overflow-indicator {
+.resume-header {
+  padding: 30px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.resume-header-left h1 {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.resume-header-left h2 {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.resume-header-right {
+  text-align: right;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.resume-intro {
+  padding: 20px 40px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+.resume-separator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  z-index: 1;
+}
+
+.resume-overflow-indicator {
   position: absolute;
   top: 297mm;
   left: 0;
   right: 0;
-  height: 200mm;
+  height: 10mm;
   background: repeating-linear-gradient(
     45deg,
     rgba(255, 0, 0, 0.1),
@@ -370,7 +411,7 @@ body {
   z-index: 10;
 }
 
-.cv-page-limit-line {
+.resume-page-limit-line {
   position: absolute;
   top: 297mm;
   left: -10px;
@@ -380,7 +421,7 @@ body {
   z-index: 11;
 }
 
-.cv-page-limit-label {
+.resume-page-limit-label {
   position: absolute;
   top: 297mm;
   right: -10px;
@@ -393,7 +434,7 @@ body {
   z-index: 12;
 }
 
-.cv-body {
+.resume-body {
   display: flex;
   flex: 1;
   position: relative;
@@ -401,21 +442,21 @@ body {
   min-height: 0;
 }
 
-.cv-left {
+.resume-left {
   padding: 30px 20px 30px 40px;
   overflow: visible; /* Allow overflow */
 }
 
-.cv-right {
+.resume-right {
   padding: 30px 40px 30px 20px;
   overflow: visible; /* Allow overflow */
 }
 
-.cv-section {
+.resume-section {
   margin-bottom: 25px;
 }
 
-.cv-section h3 {
+.resume-section h3 {
   font-size: 24px;
   margin-bottom: 15px;
   padding-bottom: 8px;
@@ -537,7 +578,7 @@ body {
   line-height: 1.4;
 }
 
-.cv-footer {
+.resume-footer {
   text-align: center;
   padding: 15px;
   font-size: 14px;

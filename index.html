@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Generator</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Configuration Panel -->
+        <div class="config-panel">
+            <div class="config-header">
+                <h2>Resume Configuration</h2>
+                <label class="import-btn">
+                    <input type="file" id="importJson" accept=".json" hidden>
+                    Import JSON
+                </label>
+            </div>
+
+            <div class="config-content">
+                <!-- Colors section -->
+                <div class="config-section">
+                    <h3>Colors</h3>
+                    <div class="color-picker-group">
+                        <label>
+                            Header Background:
+                            <input type="color" id="headerBgColor" value="#bdc3c7">
+                        </label>
+                        <label>
+                            Header Text:
+                            <input type="color" id="headerTextColor" value="#2c3e50">
+                        </label>
+                        <label>
+                            Intro Background:
+                            <input type="color" id="introBgColor" value="#34495e">
+                        </label>
+                        <label>
+                            Intro Text:
+                            <input type="color" id="introTextColor" value="#ffffff">
+                        </label>
+                        <label>
+                            Column 1 Background:
+                            <input type="color" id="col1BgColor" value="#34495e">
+                        </label>
+                        <label>
+                            Column 1 Text:
+                            <input type="color" id="col1TextColor" value="#ffffff">
+                        </label>
+                        <label id="col2BgLabel">
+                            Column 2 Background:
+                            <input type="color" id="col2BgColor" value="#ffffff">
+                        </label>
+                        <label id="col2TextLabel">
+                            Column 2 Text:
+                            <input type="color" id="col2TextColor" value="#2c3e50">
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Options section -->
+                <div class="config-section">
+                    <h3>Options</h3>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="showReference">
+                        Show "Reference available on request" at the bottom
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="sameColors" checked>
+                        Use same colors for both columns
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="selectablePdf">
+                        Export PDF with selectable text (may affect layout)
+                    </label>
+                    <label class="select-label">
+                        Language:
+                        <select id="language">
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                        </select>
+                    </label>
+                    <label class="slider-label">
+                        Column Width Balance:
+                        <input type="range" id="columnBalance" min="30" max="70" value="48" step="1">
+                        <span id="columnBalanceValue">48% / 52%</span>
+                    </label>
+                </div>
+
+                <!-- Font Size section -->
+                <div class="config-section">
+                    <h3>Font Sizes</h3>
+                    <label class="slider-label">
+                        Global Multiplier:
+                        <input type="range" id="fontGlobal" min="0.5" max="1.5" value="1" step="0.05">
+                        <span id="fontGlobalValue">1.00x</span>
+                    </label>
+                    <label class="slider-label">
+                        Section Titles (Skills, Experience...):
+                        <input type="range" id="fontSectionTitle" min="0.5" max="1.5" value="1" step="0.05">
+                        <span id="fontSectionTitleValue">1.00x</span>
+                    </label>
+                    <label class="slider-label">
+                        Subsection Titles (Group names):
+                        <input type="range" id="fontSubsectionTitle" min="0.5" max="1.5" value="1" step="0.05">
+                        <span id="fontSubsectionTitleValue">1.00x</span>
+                    </label>
+                    <label class="slider-label">
+                        Item Labels:
+                        <input type="range" id="fontLabel" min="0.5" max="1.5" value="1" step="0.05">
+                        <span id="fontLabelValue">1.00x</span>
+                    </label>
+                    <label class="slider-label">
+                        Descriptions:
+                        <input type="range" id="fontDescription" min="0.5" max="1.5" value="1" step="0.05">
+                        <span id="fontDescriptionValue">1.00x</span>
+                    </label>
+                </div>
+
+                <!-- Personal Info Section -->
+                <div class="config-section">
+                    <h3>Personal Information</h3>
+                    <input type="text" id="firstName" placeholder="First Name">
+                    <input type="text" id="lastName" placeholder="Last Name">
+                    <input type="text" id="jobTitle" placeholder="Job Title">
+                    <input type="email" id="email" placeholder="Email">
+                    <input type="tel" id="phone" placeholder="Phone">
+                    <input type="text" id="linkedin" placeholder="LinkedIn">
+                    <input type="text" id="address" placeholder="Address">
+                </div>
+
+                <!-- Introduction Section -->
+                <div class="config-section">
+                    <h3>Introduction</h3>
+                    <textarea id="introduction" rows="4" placeholder="Write your introduction..."></textarea>
+                </div>
+
+                <!-- Skills Section -->
+                <div class="config-section">
+                    <h3>Skills</h3>
+                    <div id="skillsContainer"></div>
+                    <button class="add-btn" onclick="addSkillGroup()">+ Add Skill Group</button>
+                </div>
+
+                <!-- Interests Section -->
+                <div class="config-section">
+                    <h3>Interests</h3>
+                    <div id="interestsContainer"></div>
+                    <button class="add-btn" onclick="addInterest()">+ Add Interest</button>
+                </div>
+
+                <!-- Education Section -->
+                <div class="config-section">
+                    <h3>Education & Certification</h3>
+                    <div id="educationContainer"></div>
+                    <button class="add-btn" onclick="addEducation()">+ Add Education</button>
+                </div>
+
+                <!-- Experience Section -->
+                <div class="config-section">
+                    <h3>Experience</h3>
+                    <div id="experienceContainer"></div>
+                    <button class="add-btn" onclick="addExperience()">+ Add Experience</button>
+                </div>
+
+                <!-- Export buttons moved to config panel, at the bottom, in a row -->
+                <div class="config-section export-section">
+                    <h3>Export</h3>
+                    <div class="export-buttons">
+                        <button class="action-btn" onclick="exportPDF()">Export PDF</button>
+                        <button class="action-btn" onclick="exportJSON()">Export JSON</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview panel structure - simplified without buttons -->
+        <div class="preview-panel">
+            <div class="preview-content">
+                <div class="preview-wrapper">
+                    <div id="resumePreview" class="resume-container">
+                        <!-- Resume preview here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="js/state.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/font-utils.js"></script>
+    <script src="js/skills.js"></script>
+    <script src="js/interests.js"></script>
+    <script src="js/education.js"></script>
+    <script src="js/experience.js"></script>
+    <script src="js/preview.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/import.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
