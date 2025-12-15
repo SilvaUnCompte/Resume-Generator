@@ -105,10 +105,10 @@ function buildHeader() {
                 ${hasContactInfo
         ? `
                     <div class="resume-header-right">
-                        ${state.address ? `<div><img src="${ICONS.address}" class="header-icon" alt=""> ${state.address}</div>` : ""}
-                        ${state.email ? `<div><img src="${ICONS.email}" class="header-icon" alt=""> ${state.email}</div>` : ""}
-                        ${state.phone ? `<div><img src="${ICONS.phone}" class="header-icon" alt=""> ${state.phone}</div>` : ""}
-                        ${state.linkedin ? `<div><img src="${ICONS.linkedin}" class="header-icon" alt=""> <a href="${state.linkedin}" target="_blank" rel="noopener noreferrer">${linkedInDisplay}</a></div>` : ""}
+                        ${state.address ? `<div><img src="${ICONS.address}" class="header-icon" alt=""><span>${state.address}</span></div>` : ""}
+                        ${state.email ? `<div><img src="${ICONS.email}" class="header-icon" alt=""><span>${state.email}</span></div>` : ""}
+                        ${state.phone ? `<div><img src="${ICONS.phone}" class="header-icon" alt=""><span>${state.phone}</span></div>` : ""}
+                        ${state.linkedin ? `<div><img src="${ICONS.linkedin}" class="header-icon" alt=""><a href="${state.linkedin}" target="_blank" rel="noopener noreferrer"><span>${linkedInDisplay}</span></a></div>` : ""}
                     </div>
                 `
         : ""
@@ -230,7 +230,7 @@ function buildEducations(sectionTitleSize, labelSize, descriptionSize, t) {
               </div>
                 <div class="timeline-content">
                     <h4 style="font-size: ${labelSize}px;">${edu.label}</h4>
-                    ${edu.description ? `<p style="font-size: ${descriptionSize}px;">${edu.description}</p>` : ""}
+                    ${edu.description ? `<p style="font-size: ${descriptionSize}px;"><span>${edu.description}</span></p>` : ""}
                 </div>
             </div>
         `
@@ -285,7 +285,7 @@ function buildExperiences(sectionTitleSize, labelSize, descriptionSize, t) {
 function buildFooter(t) {
   return state.showReference
     ? `
-        <div class="resume-footer" style="background-color: ${state.colors.introBg}; color: ${state.colors.introText};">${t.reference}</div>
+        <div class="resume-footer centered-export" style="background-color: ${state.colors.introBg}; color: ${state.colors.introText};">${t.reference}</div>
     `
     : ""
 }
