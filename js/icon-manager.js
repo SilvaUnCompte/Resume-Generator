@@ -32,3 +32,8 @@ function updateTimelineImagePreviews() {
   bulletResetBtn.style.display = state.timelineImages.bullet ? "inline-block" : "none"
   dashResetBtn.style.display = state.timelineImages.dash ? "inline-block" : "none"
 }
+
+function updateTimelineIconPosition(value) {
+  state.timelineIconPosition = value
+  updatePreview()
+}

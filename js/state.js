@@ -42,4 +42,5 @@ const state = {
     bullet: null,
     dash: null,
   },
+  timelineIconPosition: "before-label",
 }

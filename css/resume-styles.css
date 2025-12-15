@@ -53,7 +53,7 @@
 
 /* Intro */
 .resume-intro {
-  padding: 20px 40px 10px 40px;
+  padding: 20px 40px;
   text-align: center;
   font-size: 15px;
   line-height: 1.5;
@@ -70,12 +70,12 @@
 }
 
 .resume-left {
-  padding: 25px 20px 30px 40px;
+  padding: 30px 20px 30px 40px;
   overflow: visible;
 }
 
 .resume-right {
-  padding: 25px 40px 30px 20px;
+  padding: 30px 40px 30px 20px;
   overflow: visible;
 }
 
@@ -206,15 +206,50 @@
   z-index: 1;
 }
 
+.timeline-content {
+  flex: 1;
+}
+
 .timeline-content h4 {
   font-size: 15px;
   margin-bottom: 5px;
-  /* font-style: italic; */
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .timeline-content p {
   font-size: 13px;
   line-height: 1.4;
+}
+
+/* Timeline item icon styles */
+.timeline-item-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.place-icon-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+.place-icon-right {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.place-icon-far-right {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
 }
 
 /* Footer */
@@ -256,13 +291,11 @@
   left: 0;
   right: 0;
   height: 10mm;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(255, 0, 0, 0.1),
-    rgba(255, 0, 0, 0.1) 10px,
-    rgba(255, 0, 0, 0.2) 10px,
-    rgba(255, 0, 0, 0.2) 20px
-  );
+  background: repeating-linear-gradient(45deg,
+      rgba(255, 0, 0, 0.1),
+      rgba(255, 0, 0, 0.1) 10px,
+      rgba(255, 0, 0, 0.2) 10px,
+      rgba(255, 0, 0, 0.2) 20px);
   border-top: 3px dashed #e74c3c;
   pointer-events: none;
   z-index: 10;

@@ -404,3 +404,79 @@
 .reset-timeline-btn:hover {
   background-color: #c0392b;
 }
+
+
+/* ============================ Icon position row for timeline ============================ */
+.icon-position-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.icon-position-row select {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* ============================ Icon upload group for education/experience items ============================ */
+.icon-upload-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.icon-preview {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, #fff 25%, #ffe6ee 25%, #ffe6ee 50%, #fff 50%, #fff 75%, #ffe6ee 75%);
+  background-size: 6px 6px;
+  overflow: hidden;
+}
+
+.icon-preview img {
+  max-width: 28px;
+  max-height: 28px;
+  object-fit: contain;
+}
+
+.icon-preview .no-icon {
+  font-size: 8px;
+  color: #999;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.image-upload-btn.small {
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+.remove-icon-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.remove-icon-btn:hover {
+  background-color: #c0392b;
+}

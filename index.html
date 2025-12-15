@@ -138,6 +138,14 @@
                 <!-- Timeline Aspect section (new) -->
                 <div class="config-section">
                     <h3>Timeline Aspect</h3>
+                    <div class="icon-position-row">
+                        <span class="timeline-image-label">Education and experience Icons position:</span>
+                        <select id="timelineIconPosition" onchange="updateTimelineIconPosition(this.value)">
+                            <option value="before-label">Before label</option>
+                            <option value="after-label">After label</option>
+                            <option value="far-right">Far right</option>
+                        </select>
+                    </div>
                     <div class="timeline-image-row">
                         <span class="timeline-image-label">Bullet:</span>
                         <div class="timeline-image-preview" id="bulletPreview">
