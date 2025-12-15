@@ -55,7 +55,7 @@ function updateFormFields(state) {
   // Options
   document.getElementById("showReference").checked = state.showReference || false
   document.getElementById("sameColors").checked = state.sameColors !== undefined ? state.sameColors : true
-  document.getElementById("selectablePdf").checked = state.selectablePdf || false
+  document.getElementById("exportToImg").checked = state.exportToImg || false
   document.getElementById("columnBalance").value = state.columnBalance || 48
   document.getElementById("language").value = state.language || "en"
 

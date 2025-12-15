@@ -117,8 +117,8 @@ function loadEventListeners() {
     updatePreview()
   })
 
-  document.getElementById("selectablePdf").addEventListener("change", (e) => {
-    state.selectablePdf = e.target.checked
+  document.getElementById("exportToImg").addEventListener("change", (e) => {
+    state.exportToImg = e.target.checked
   })
 
   document.getElementById("columnBalance").addEventListener("input", (e) => {

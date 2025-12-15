@@ -19,7 +19,7 @@ const state = {
   showReference: false,
   language: "en",
   sameColors: true,
-  selectablePdf: false,
+  exportToImg: false,
   columnBalance: 48,
   fontSizes: {
     global: 1,

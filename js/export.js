@@ -202,10 +202,10 @@ function getPDFFilename() {
  */
 async function exportPDF() {
   const element = document.getElementById("resumePreview")
-  if (state.selectablePdf) {
-    await exportSelectablePDF(element)
-  } else {
+  if (state.exportToImg) {
     await exportImagePDF(element)
+  } else {
+    await exportSelectablePDF(element)
   }
 }
 
@@ -286,7 +286,7 @@ async function exportSelectablePDF(element) {
   } catch (error) {
     console.error("Selectable PDF export error:", error)
     if (clone) document.body.removeChild(clone)
-    alert("Error exporting selectable PDF. Try disabling the selectable text option.")
+    alert("Error exporting selectable PDF. Try with the export to image option.")
   }
 }
 
