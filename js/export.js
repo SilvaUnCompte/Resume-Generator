@@ -55,7 +55,7 @@ async function exportImagePDF(element) {
     })
 
     pdf.addImage(imgData, "PNG", 0, 0, 210, 297)
-    pdf.save("resume.pdf")
+    pdf.save(state.firstName + " " + state.lastName + " Resume.pdf")
   } catch (error) {
     console.error("PDF export error:", error)
     alert("Error exporting PDF. Please try again.")
@@ -90,7 +90,7 @@ async function exportSelectablePDF(element) {
     await pdf.html(clone, {
       callback: (pdf) => {
         document.body.removeChild(clone)
-        pdf.save("resume.pdf")
+        pdf.save(state.firstName + " " + state.lastName + " Resume.pdf")
       },
       x: 0,
       y: 0,
