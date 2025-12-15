@@ -33,6 +33,9 @@ function importJSON(event) {
       updateTimelineImagePreviews()
 
       updatePreview()
+
+      // Destroy import button after successful import: idk how to fix an issue with re-importing so f*ck it :)
+      document.getElementsByClassName("import-btn")[0].remove();
     } catch (error) {
       console.error("Import error:", error)
       alert("Error importing JSON file. Please check the file format.")

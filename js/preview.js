@@ -25,7 +25,7 @@ function getTimelineImages() {
 
 function nl2br(text) {
   if (!text) return ""
-  return text.replace(/\n/g, "<br>")
+  return text.replace(/\n/g, "</br>")
 }
 
 /**
@@ -137,7 +137,7 @@ function buildHeader() {
 function buildIntro(introSize) {
   return state.introduction
     ? `
-        <div class="resume-intro" style="background-color: ${state.colors.introBg}; color: ${state.colors.introText}; font-size: ${introSize}px;">${nl2br(state.introduction)}</div>
+        <div class="resume-intro centered-export" style="background-color: ${state.colors.introBg}; color: ${state.colors.introText}; font-size: ${introSize}px;">${nl2br(state.introduction)}</div>
     `
     : ""
 }

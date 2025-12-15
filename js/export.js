@@ -10,7 +10,7 @@ const PDF_CONFIG = {
   FONT_WIDTH_MARGIN: 0.6,  // Width margin for Helvetica vs Arial difference
   PAGE_WIDTH: 210,          // A4 width in mm
   PAGE_HEIGHT: 297,         // A4 height in mm
-  FONT_FAMILY: 'helvetica',
+  FONT_FAMILY: 'helvetica', // Force font family for all text
 }
 
 // =============== UTILITY FUNCTIONS ===============
@@ -100,7 +100,10 @@ function extractTextElements(clone) {
   const textData = []
 
   textElements.forEach((el) => {
-    const text = el.textContent.trim()
+    // Clone element to preserve original and replace <br> with \n
+    const tempEl = el.cloneNode(true)
+    tempEl.innerHTML = tempEl.innerHTML.replace(/<br\s*\/?>/gi, '\n')
+    const text = tempEl.textContent.trim()
     if (!text) return
 
     // Skip elements with children (except specific patterns)
@@ -153,8 +156,12 @@ function extractTextElements(clone) {
  * @param {Object[]} textData - Array of text element data
  */
 function renderTextOnPDF(pdf, textData) {
+  // Force font family at the beginning
+  pdf.setFont(PDF_CONFIG.FONT_FAMILY, 'normal')
+  
   textData.forEach((item) => {
     pdf.setFontSize(item.fontSize)
+    // Always use PDF_CONFIG.FONT_FAMILY, ignore CSS font-family
     pdf.setFont(PDF_CONFIG.FONT_FAMILY, getFontStyle(item.fontWeight, item.fontStyle))
 
     // Set text color
@@ -261,7 +268,7 @@ async function exportSelectablePDF(element) {
       scale: 2,
       useCORS: true,
       logging: false,
-      backgroundColor: "#ffffff",
+      backgroundColor: state.colors.col1Bg || "#ffffff",
       width: clone.offsetWidth,
       height: clone.offsetHeight,
     })
