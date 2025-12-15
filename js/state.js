@@ -38,4 +38,8 @@ const state = {
     col2Bg: "#ffffff",
     col2Text: "#2c3e50",
   },
+  timelineImages: {
+    bullet: null,
+    dash: null,
+  },
 }

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/config-panel.css">
     <link rel="stylesheet" href="css/preview-panel.css">
     <link rel="stylesheet" href="css/resume-styles.css">
+    <link rel="icon" href="images/favicon.png" type="image/png">
 </head>
 
 <body>
@@ -134,6 +135,35 @@
                     <button class="add-btn" onclick="addExperience()">+ Add Experience</button>
                 </div>
 
+                <!-- Timeline Aspect section (new) -->
+                <div class="config-section">
+                    <h3>Timeline Aspect</h3>
+                    <div class="timeline-image-row">
+                        <span class="timeline-image-label">Bullet:</span>
+                        <div class="timeline-image-preview" id="bulletPreview">
+                            <img id="bulletPreviewImg" src="images/bullet.png" alt="Bullet">
+                        </div>
+                        <label class="image-upload-btn">
+                            <input type="file" accept="image/*" id="bulletImageInput" hidden>
+                            Choose
+                        </label>
+                        <button class="reset-timeline-btn" id="bulletResetBtn" style="display: none;"
+                            onclick="resetTimelineImage('bullet')">Reset</button>
+                    </div>
+                    <div class="timeline-image-row">
+                        <span class="timeline-image-label">Line:</span>
+                        <div class="timeline-image-preview" id="dashPreview">
+                            <img id="dashPreviewImg" src="images/dash.png" alt="Line">
+                        </div>
+                        <label class="image-upload-btn">
+                            <input type="file" accept="image/*" id="dashImageInput" hidden>
+                            Choose
+                        </label>
+                        <button class="reset-timeline-btn" id="dashResetBtn" style="display: none;"
+                            onclick="resetTimelineImage('dash')">Reset</button>
+                    </div>
+                </div>
+
                 <label class="slider-label">
                     Column Width Balance:
                     <input type="range" id="columnBalance" min="30" max="70" value="48" step="1">
@@ -197,6 +227,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script src="js/state.js"></script>
+    <script src="js/icon-manager.js"></script>
     <script src="js/translations.js"></script>
     <script src="js/font-utils.js"></script>
     <script src="js/skills.js"></script>

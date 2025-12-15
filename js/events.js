@@ -164,6 +164,16 @@ function loadEventListeners() {
     updatePreview()
   })
 
+  document.getElementById("bulletImageInput").addEventListener("change", (e) => {
+    uploadTimelineImage("bullet", e.target.files[0])
+  })
+
+  document.getElementById("dashImageInput").addEventListener("change", (e) => {
+    uploadTimelineImage("dash", e.target.files[0])
+  })
+
   // Import
   document.getElementById("importJson").addEventListener("change", importJSON)
+
+  updateTimelineImagePreviews()
 }
