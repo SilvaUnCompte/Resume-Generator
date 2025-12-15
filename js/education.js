@@ -17,6 +17,10 @@ function addEducation() {
 
   itemDiv.innerHTML = `
         <button class="remove-btn" onclick="removeEducation(${id})">Remove</button>
+        <div class="reorder-buttons">
+            <button class="reorder-btn" onclick="moveEducation(${id}, -1)" title="Move up">&#9650;</button>
+            <button class="reorder-btn" onclick="moveEducation(${id}, 1)" title="Move down">&#9660;</button>
+        </div>
         <div class="visible-checkbox">
             <input type="checkbox" id="education-visible-${id}" checked onchange="updateEducationVisible(${id}, this.checked)">
             <label for="education-visible-${id}">Visible</label>
@@ -67,6 +71,23 @@ function updateEducationVisible(id, visible) {
   }
 }
 
+function moveEducation(id, direction) {
+  const index = state.education.findIndex((e) => e.id === id)
+  if (index === -1) return
+
+  const newIndex = index + direction
+  if (newIndex < 0 || newIndex >= state.education.length) return
+
+  // Swap elements in the array
+  const temp = state.education[index]
+  state.education[index] = state.education[newIndex]
+  state.education[newIndex] = temp
+
+  // Rebuild UI and preview
+  rebuildEducation()
+  updatePreview()
+}
+
 /**
  * Rebuild education UI from state (used after JSON import)
  */
@@ -81,6 +102,10 @@ function rebuildEducation() {
 
     itemDiv.innerHTML = `
             <button class="remove-btn" onclick="removeEducation(${edu.id})">Remove</button>
+            <div class="reorder-buttons">
+                <button class="reorder-btn" onclick="moveEducation(${edu.id}, -1)" title="Move up">&#9650;</button>
+                <button class="reorder-btn" onclick="moveEducation(${edu.id}, 1)" title="Move down">&#9660;</button>
+            </div>
             <div class="visible-checkbox">
                 <input type="checkbox" id="education-visible-${edu.id}" ${edu.visible ? "checked" : ""} onchange="updateEducationVisible(${edu.id}, this.checked)">
                 <label for="education-visible-${edu.id}">Visible</label>

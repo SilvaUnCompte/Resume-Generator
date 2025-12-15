@@ -17,6 +17,10 @@ function addExperience() {
 
   itemDiv.innerHTML = `
         <button class="remove-btn" onclick="removeExperience(${id})">Remove</button>
+        <div class="reorder-buttons">
+            <button class="reorder-btn" onclick="moveExperience(${id}, -1)" title="Move up">&#9650;</button>
+            <button class="reorder-btn" onclick="moveExperience(${id}, 1)" title="Move down">&#9660;</button>
+        </div>
         <div class="visible-checkbox">
             <input type="checkbox" id="experience-visible-${id}" checked onchange="updateExperienceVisible(${id}, this.checked)">
             <label for="experience-visible-${id}">Visible</label>
@@ -67,6 +71,23 @@ function updateExperienceVisible(id, visible) {
   }
 }
 
+function moveExperience(id, direction) {
+  const index = state.experience.findIndex((e) => e.id === id)
+  if (index === -1) return
+
+  const newIndex = index + direction
+  if (newIndex < 0 || newIndex >= state.experience.length) return
+
+  // Swap elements in the array
+  const temp = state.experience[index]
+  state.experience[index] = state.experience[newIndex]
+  state.experience[newIndex] = temp
+
+  // Rebuild UI and preview
+  rebuildExperience()
+  updatePreview()
+}
+
 /**
  * Rebuild experience UI from state (used after JSON import)
  */
@@ -81,6 +102,10 @@ function rebuildExperience() {
 
     itemDiv.innerHTML = `
             <button class="remove-btn" onclick="removeExperience(${exp.id})">Remove</button>
+            <div class="reorder-buttons">
+                <button class="reorder-btn" onclick="moveExperience(${exp.id}, -1)" title="Move up">&#9650;</button>
+                <button class="reorder-btn" onclick="moveExperience(${exp.id}, 1)" title="Move down">&#9660;</button>
+            </div>
             <div class="visible-checkbox">
                 <input type="checkbox" id="experience-visible-${exp.id}" ${exp.visible ? "checked" : ""} onchange="updateExperienceVisible(${exp.id}, this.checked)">
                 <label for="experience-visible-${exp.id}">Visible</label>

@@ -45,7 +45,7 @@
   padding: 20px;
 }
 
-/* Config sections */
+/* ============================ Config sections ============================ */
 .config-section {
   margin-bottom: 30px;
   padding-bottom: 20px;
@@ -78,7 +78,7 @@
   font-family: "Arial", sans-serif;
 }
 
-/* Color picker group */
+/* ============================ Color picker group ============================ */
 .color-picker-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -101,7 +101,7 @@
   cursor: pointer;
 }
 
-/* Checkbox and select labels */
+/* ============================ Checkbox and select labels ============================ */
 .checkbox-label {
   display: flex;
   align-items: center;
@@ -122,7 +122,7 @@
   margin-bottom: 15px;
 }
 
-/* Slider labels */
+/* ============================ Slider labels ============================ */
 .slider-label {
   display: flex;
   flex-direction: column;
@@ -141,7 +141,7 @@
   text-align: center;
 }
 
-/* Buttons */
+/* ============================ Buttons ============================ */
 .add-btn {
   background-color: #27ae60;
   color: white;
@@ -176,7 +176,7 @@
   background-color: #34495e;
 }
 
-/* Export section */
+/* ============================ Export section ============================ */
 .export-section {
   margin-bottom: 0;
   padding-bottom: 0;
@@ -191,7 +191,7 @@
   flex: 1;
 }
 
-/* Item containers */
+/* ============================ Item containers ============================ */
 .item-container {
   background-color: #f8f9fa;
   padding: 15px;
@@ -219,7 +219,7 @@
   background-color: #c0392b;
 }
 
-/* Skill items */
+/* ============================ Skill items ============================ */
 .skill-item {
   background-color: #fff;
   padding: 10px;
@@ -263,7 +263,7 @@
   background-color: #2980b9;
 }
 
-/* Visible checkbox */
+/* ============================ Visible checkbox ============================ */
 .visible-checkbox {
   display: flex;
   align-items: center;
@@ -276,7 +276,7 @@
   margin: 0;
 }
 
-/* Input row for buttons alongside inputs */
+/* ============================ Input row for buttons alongside inputs ============================ */
 .input-row {
   display: flex;
   gap: 8px;
@@ -304,4 +304,103 @@
 
 .image-upload-btn:hover {
   background-color: #2980b9;
+}
+
+/* ============================ Reorder buttons ============================ */
+.reorder-buttons {
+  position: absolute;
+  top: 10px;
+  right: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reorder-btn {
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  padding: 1px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 10px;
+  line-height: 1;
+  transition: background-color 0.3s;
+}
+
+.reorder-btn:hover {
+  background-color: #7f8c8d;
+}
+
+/* ============================ Reorder buttons for skill items ============================ */
+.skill-item-reorder {
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reorder-btn-small {
+  background-color: #95a5a6;
+  color: white;
+  border: none;
+  padding: 0px 6px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 9px;
+  line-height: 1;
+  transition: background-color 0.3s;
+}
+
+.reorder-btn-small:hover {
+  background-color: #7f8c8d;
+}
+
+/* ============================ Timeline image selector styles ============================ */
+.timeline-image-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.timeline-image-label {
+  min-width: 50px;
+  font-size: 14px;
+  color: #555;
+}
+
+.timeline-image-preview {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffcccc;
+  background-size: 8px 8px;
+}
+
+.timeline-image-preview img {
+  max-width: 36px;
+  max-height: 36px;
+  object-fit: contain;
+}
+
+.reset-timeline-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.3s;
+}
+
+.reset-timeline-btn:hover {
+  background-color: #c0392b;
 }

@@ -18,6 +18,10 @@ function importJSON(event) {
       // Update shared state
       Object.assign(state, data)
 
+      if (!state.timelineImages) {
+        state.timelineImages = { bullet: null, dash: null }
+      }
+
       // Update form fields
       updateFormFields(state)
 
@@ -26,10 +30,9 @@ function importJSON(event) {
       rebuildInterests()
       rebuildEducation()
       rebuildExperience()
+      updateTimelineImagePreviews()
 
       updatePreview()
-
-      alert("Resume data imported successfully!")
     } catch (error) {
       console.error("Import error:", error)
       alert("Error importing JSON file. Please check the file format.")

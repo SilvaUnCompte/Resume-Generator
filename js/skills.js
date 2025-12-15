@@ -17,6 +17,10 @@ function addSkillGroup() {
 
   groupDiv.innerHTML = `
         <button class="remove-btn" onclick="removeSkillGroup(${id})">Remove</button>
+        <div class="reorder-buttons">
+            <button class="reorder-btn" onclick="moveSkillGroup(${id}, -1)" title="Move up">&#9650;</button>
+            <button class="reorder-btn" onclick="moveSkillGroup(${id}, 1)" title="Move down">&#9660;</button>
+        </div>
         <div class="visible-checkbox">
             <input type="checkbox" id="skill-group-visible-${id}" checked onchange="updateSkillGroupVisible(${id}, this.checked)">
             <label for="skill-group-visible-${id}">Visible</label>
@@ -67,6 +71,21 @@ function updateSkillGroupVisible(id, visible) {
   }
 }
 
+function moveSkillGroup(id, direction) {
+  const index = state.skills.findIndex((g) => g.id === id)
+  if (index === -1) return
+
+  const newIndex = index + direction
+  if (newIndex < 0 || newIndex >= state.skills.length) return
+
+  const temp = state.skills[index]
+  state.skills[index] = state.skills[newIndex]
+  state.skills[newIndex] = temp
+
+  rebuildSkills()
+  updatePreview()
+}
+
 /**
  * Add a skill item to a group
  * @param {number} groupId - Parent group ID
@@ -85,6 +104,10 @@ function addSkillItem(groupId) {
 
   itemDiv.innerHTML = `
         <button class="remove-skill-btn" onclick="removeSkillItem(${groupId}, ${itemId})">×</button>
+        <div class="skill-item-reorder">
+            <button class="reorder-btn-small" onclick="moveSkillItem(${groupId}, ${itemId}, -1)" title="Move up">&#9650;</button>
+            <button class="reorder-btn-small" onclick="moveSkillItem(${groupId}, ${itemId}, 1)" title="Move down">&#9660;</button>
+        </div>
         <div class="visible-checkbox">
             <input type="checkbox" id="skill-item-visible-${itemId}" checked onchange="updateSkillItemVisible(${groupId}, ${itemId}, this.checked)">
             <label for="skill-item-visible-${itemId}">Visible</label>
@@ -152,6 +175,24 @@ function updateSkillItemVisible(groupId, itemId, visible) {
   }
 }
 
+function moveSkillItem(groupId, itemId, direction) {
+  const group = state.skills.find((g) => g.id === groupId)
+  if (!group) return
+
+  const index = group.items.findIndex((i) => i.id === itemId)
+  if (index === -1) return
+
+  const newIndex = index + direction
+  if (newIndex < 0 || newIndex >= group.items.length) return
+
+  const temp = group.items[index]
+  group.items[index] = group.items[newIndex]
+  group.items[newIndex] = temp
+
+  rebuildSkills()
+  updatePreview()
+}
+
 /**
  * Upload icons for a skill item
  * @param {number} groupId - Parent group ID
@@ -207,6 +248,10 @@ function rebuildSkills() {
 
     groupDiv.innerHTML = `
             <button class="remove-btn" onclick="removeSkillGroup(${group.id})">Remove</button>
+            <div class="reorder-buttons">
+                <button class="reorder-btn" onclick="moveSkillGroup(${group.id}, -1)" title="Move up">&#9650;</button>
+                <button class="reorder-btn" onclick="moveSkillGroup(${group.id}, 1)" title="Move down">&#9660;</button>
+            </div>
             <div class="visible-checkbox">
                 <input type="checkbox" id="skill-group-visible-${group.id}" ${group.visible ? "checked" : ""} onchange="updateSkillGroupVisible(${group.id}, this.checked)">
                 <label for="skill-group-visible-${group.id}">Visible</label>
@@ -227,6 +272,10 @@ function rebuildSkills() {
 
       itemDiv.innerHTML = `
                 <button class="remove-skill-btn" onclick="removeSkillItem(${group.id}, ${item.id})">×</button>
+                <div class="skill-item-reorder">
+                    <button class="reorder-btn-small" onclick="moveSkillItem(${group.id}, ${item.id}, -1)" title="Move up">&#9650;</button>
+                    <button class="reorder-btn-small" onclick="moveSkillItem(${group.id}, ${item.id}, 1)" title="Move down">&#9660;</button>
+                </div>
                 <div class="visible-checkbox">
                     <input type="checkbox" id="skill-item-visible-${item.id}" ${item.visible ? "checked" : ""} onchange="updateSkillItemVisible(${group.id}, ${item.id}, this.checked)">
                     <label for="skill-item-visible-${item.id}">Visible</label>
