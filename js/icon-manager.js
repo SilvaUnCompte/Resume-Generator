@@ -49,9 +49,43 @@ function uploadProfilePhoto(file) {
 
   const reader = new FileReader()
   reader.onload = (e) => {
-    state.profilePhoto = e.target.result
-    updateProfilePhotoPreview()
-    updatePreview()
+    const img = new Image()
+    img.onload = () => {
+      const srcW = img.naturalWidth || img.width
+      const srcH = img.naturalHeight || img.height
+      if (!srcW || !srcH) {
+        // Fallback: keep original if dimensions unavailable
+        state.profilePhoto = e.target.result
+        updateProfilePhotoPreview()
+        updatePreview()
+        return
+      }
+
+      // Center-crop to a square (object-fit: cover equivalent)
+      const side = Math.min(srcW, srcH)
+      const sx = Math.floor((srcW - side) / 2)
+      const sy = Math.floor((srcH - side) / 2)
+
+      const canvas = document.createElement('canvas')
+      canvas.width = side
+      canvas.height = side
+      const ctx = canvas.getContext('2d')
+      if (ctx && ctx.imageSmoothingQuality) {
+        ctx.imageSmoothingEnabled = true
+        ctx.imageSmoothingQuality = 'high'
+      }
+      ctx.drawImage(img, sx, sy, side, side, 0, 0, side, side)
+
+      // Preserve original MIME when possible (jpeg/png), default to PNG
+      const mime = (file.type && /image\/(png|jpeg|jpg)/i.test(file.type)) ? file.type : 'image/png'
+      const quality = mime === 'image/jpeg' ? 0.92 : 1.0
+      const dataUrl = canvas.toDataURL(mime, quality)
+
+      state.profilePhoto = dataUrl
+      updateProfilePhotoPreview()
+      updatePreview()
+    }
+    img.src = e.target.result
   }
   reader.readAsDataURL(file)
 }
