@@ -81,11 +81,13 @@
 }
 
 /* Intro */
+.resume-intro-container {
+  padding: 0px 40px;
+}
+
 .resume-intro {
-  padding: 20px 40px;
+  padding: 20px 0px;
   text-align: center;
-  font-size: 15px;
-  line-height: 1.5;
   flex-shrink: 0;
 }
 

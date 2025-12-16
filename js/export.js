@@ -82,7 +82,7 @@ function calculateTextLayout(element, x, y, width, styles) {
   if (element.classList.contains('centered-export')) {
     align = 'center'
     centerVertically = true
-    elementX = (x * PDF_CONFIG.PX_TO_MM) + (width / 2)
+    elementX = elementX + (width / 2)
     elementY = elementY + (elementHeight / 2)
   }
 
@@ -177,10 +177,6 @@ function renderTextOnPDF(pdf, textData) {
       align: item.align === 'center' ? 'center' : item.align === 'right' ? 'right' : 'left',
     }
 
-    if (item.centerVertically) {
-      textOptions.baseline = 'middle'
-    }
-
     pdf.text(item.text, item.x, textY, textOptions)
 
     // Render border-bottom if present
@@ -235,7 +231,7 @@ async function exportImagePDF(element) {
       scale: 2,
       useCORS: true,
       logging: false,
-      backgroundColor: "#ffffff",
+      backgroundColor: "#000000ff",
       width: clone.offsetWidth,
       height: clone.offsetHeight,
     })
@@ -278,7 +274,7 @@ async function exportSelectablePDF(element) {
       scale: 2,
       useCORS: true,
       logging: false,
-      backgroundColor: state.colors.col1Bg || "#ffffff",
+      backgroundColor: state.colors.col1Bg || "#000000ff",
       width: clone.offsetWidth,
       height: clone.offsetHeight,
     })

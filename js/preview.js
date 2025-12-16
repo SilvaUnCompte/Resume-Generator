@@ -148,7 +148,11 @@ function buildHeader() {
 function buildIntro(introSize) {
   return state.introduction
     ? `
-        <div class="resume-intro centered-export" style="background-color: ${state.colors.introBg}; color: ${state.colors.introText}; font-size: ${introSize}px;">${nl2br(state.introduction)}</div>
+        <div class="resume-intro-container" style="background-color: ${state.colors.introBg};"> 
+          <div class="resume-intro centered-export" style="color: ${state.colors.introText}; font-size: ${introSize}px;">
+            ${nl2br(state.introduction)}
+          </div>
+        </div>
     `
     : ""
 }
