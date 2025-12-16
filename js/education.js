@@ -27,7 +27,7 @@ function addEducation() {
         </div>
         <div class="input-row">
             <input type="text" placeholder="Label (e.g., 2023 to 2026 - Master)"
-                   onchange="updateEducation(${id}, 'label', this.value)" value="">
+                   oninput="updateEducation(${id}, 'label', this.value)" value="">
             <div class="icon-upload-group">
                 <div class="icon-preview" id="education-icon-preview-${id}">
                     <span class="no-icon">No icon</span>
@@ -40,7 +40,7 @@ function addEducation() {
             </div>
         </div>
         <textarea rows="3" placeholder="Description"
-                  onchange="updateEducation(${id}, 'description', this.value)"></textarea>
+                  oninput="updateEducation(${id}, 'description', this.value)"></textarea>
     `
 
   container.appendChild(itemDiv)
@@ -174,7 +174,7 @@ function rebuildEducation() {
             </div>
             <div class="input-row">
                 <input type="text" placeholder="Label (e.g., 2023 to 2026 - Master)"
-                       onchange="updateEducation(${edu.id}, 'label', this.value)" value="${edu.label || ""}">
+                       oninput="updateEducation(${edu.id}, 'label', this.value)" value="${edu.label || ""}">
                 <div class="icon-upload-group">
                     <div class="icon-preview" id="education-icon-preview-${edu.id}">
                         ${iconPreviewContent}
@@ -187,7 +187,7 @@ function rebuildEducation() {
                 </div>
             </div>
             <textarea rows="3" placeholder="Description"
-                      onchange="updateEducation(${edu.id}, 'description', this.value)">${edu.description || ""}</textarea>
+                      oninput="updateEducation(${edu.id}, 'description', this.value)">${edu.description || ""}</textarea>
         `
 
     container.appendChild(itemDiv)

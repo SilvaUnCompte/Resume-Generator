@@ -22,9 +22,9 @@ function addInterest() {
             <label for="interest-visible-${id}">Visible</label>
         </div>
         <input type="text" placeholder="Label"
-               onchange="updateInterest(${id}, 'label', this.value)" value="">
+               oninput="updateInterest(${id}, 'label', this.value)" value="">
         <input type="text" placeholder="Description"
-               onchange="updateInterest(${id}, 'description', this.value)" value="">
+               oninput="updateInterest(${id}, 'description', this.value)" value="">
         <div class="input-row">
             <label class="image-upload-btn">
                 <input type="file" accept="image/*" onchange="uploadInterestImage(${id}, this.files[0])" hidden>
@@ -118,9 +118,9 @@ function rebuildInterests() {
                 <label for="interest-visible-${interest.id}">Visible</label>
             </div>
             <input type="text" placeholder="Label"
-                   onchange="updateInterest(${interest.id}, 'label', this.value)" value="${interest.label || ""}">
+                   oninput="updateInterest(${interest.id}, 'label', this.value)" value="${interest.label || ""}">
             <input type="text" placeholder="Description"
-                   onchange="updateInterest(${interest.id}, 'description', this.value)" value="${interest.description || ""}">
+                   oninput="updateInterest(${interest.id}, 'description', this.value)" value="${interest.description || ""}">
             <div class="input-row">
                 <label class="image-upload-btn">
                     <input type="file" accept="image/*" onchange="uploadInterestImage(${interest.id}, this.files[0])" hidden>

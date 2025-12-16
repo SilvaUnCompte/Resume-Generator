@@ -26,7 +26,7 @@ function addSkillGroup() {
             <label for="skill-group-visible-${id}">Visible</label>
         </div>
         <input type="text" placeholder="Group Title (e.g., Programming languages)"
-               onchange="updateSkillGroupTitle(${id}, this.value)" value="">
+               oninput="updateSkillGroupTitle(${id}, this.value)" value="">
         <div id="skill-items-${id}"></div>
         <button class="add-skill-item-btn" onclick="addSkillItem(${id})">+ Add Skill</button>
     `
@@ -114,7 +114,7 @@ function addSkillItem(groupId) {
         </div>
         <div class="input-row">
             <input type="text" placeholder="Skill Name"
-                   onchange="updateSkillItem(${groupId}, ${itemId}, 'name', this.value)" value="">
+                   oninput="updateSkillItem(${groupId}, ${itemId}, 'name', this.value)" value="">
             <label class="image-upload-btn">
                 <input type="file" accept="image/*" multiple onchange="uploadSkillIcons(${groupId}, ${itemId}, this.files)" hidden>
                 Upload Icons
@@ -257,7 +257,7 @@ function rebuildSkills() {
                 <label for="skill-group-visible-${group.id}">Visible</label>
             </div>
             <input type="text" placeholder="Group Title"
-                   onchange="updateSkillGroupTitle(${group.id}, this.value)" value="${group.title || ""}">
+                   oninput="updateSkillGroupTitle(${group.id}, this.value)" value="${group.title || ""}">
             <div id="skill-items-${group.id}"></div>
             <button class="add-skill-item-btn" onclick="addSkillItem(${group.id})">+ Add Skill</button>
         `
@@ -282,7 +282,7 @@ function rebuildSkills() {
                 </div>
                 <div class="input-row">
                     <input type="text" placeholder="Skill Name"
-                           onchange="updateSkillItem(${group.id}, ${item.id}, 'name', this.value)" value="${item.name || ""}">
+                           oninput="updateSkillItem(${group.id}, ${item.id}, 'name', this.value)" value="${item.name || ""}">
                     <label class="image-upload-btn">
                         <input type="file" accept="image/*" multiple onchange="uploadSkillIcons(${group.id}, ${item.id}, this.files)" hidden>
                         Upload Icons

@@ -27,7 +27,7 @@ function addExperience() {
         </div>
         <div class="input-row">
             <input type="text" placeholder="Label (e.g., 2023 to 2026 - Company)"
-                   onchange="updateExperience(${id}, 'label', this.value)" value="">
+                   oninput="updateExperience(${id}, 'label', this.value)" value="">
             <div class="icon-upload-group">
                 <div class="icon-preview" id="experience-icon-preview-${id}">
                     <span class="no-icon">No icon</span>
@@ -40,7 +40,7 @@ function addExperience() {
             </div>
         </div>
         <textarea rows="3" placeholder="Description"
-                  onchange="updateExperience(${id}, 'description', this.value)"></textarea>
+                  oninput="updateExperience(${id}, 'description', this.value)"></textarea>
     `
 
   container.appendChild(itemDiv)
@@ -174,7 +174,7 @@ function rebuildExperience() {
             </div>
             <div class="input-row">
                 <input type="text" placeholder="Label (e.g., 2023 to 2026 - Company)"
-                       onchange="updateExperience(${exp.id}, 'label', this.value)" value="${exp.label || ""}">
+                       oninput="updateExperience(${exp.id}, 'label', this.value)" value="${exp.label || ""}">
                 <div class="icon-upload-group">
                     <div class="icon-preview" id="experience-icon-preview-${exp.id}">
                         ${iconPreviewContent}
@@ -187,7 +187,7 @@ function rebuildExperience() {
                 </div>
             </div>
             <textarea rows="3" placeholder="Description"
-                      onchange="updateExperience(${exp.id}, 'description', this.value)">${exp.description || ""}</textarea>
+                      oninput="updateExperience(${exp.id}, 'description', this.value)">${exp.description || ""}</textarea>
         `
 
     container.appendChild(itemDiv)
