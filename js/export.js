@@ -33,7 +33,7 @@ function rgbToArray(rgbString) {
  */
 function prepareCloneForExport(element) {
   const clone = element.cloneNode(true)
-  
+
   // Remove UI indicators (page limits, overflow indicators)
   const indicators = clone.querySelectorAll(
     ".resume-page-limit-line, .resume-page-limit-label, .resume-overflow-indicator"
@@ -158,7 +158,7 @@ function extractTextElements(clone) {
 function renderTextOnPDF(pdf, textData) {
   // Force font family at the beginning
   pdf.setFont(PDF_CONFIG.FONT_FAMILY, 'normal')
-  
+
   textData.forEach((item) => {
     pdf.setFontSize(item.fontSize)
     // Always use PDF_CONFIG.FONT_FAMILY, ignore CSS font-family
@@ -204,10 +204,17 @@ function getPDFFilename() {
 
 // ============================== MAIN EXPORT FUNCTIONS ==============================
 
+let loaderCount = 0;
+const loader = document.getElementById("exportLoader");
+
 /**
  * Export Resume as PDF
  */
 async function exportPDF() {
+  await loaderShow();
+  // Add delay
+  await new Promise(resolve => setTimeout(resolve, 100));
+
   const element = document.getElementById("resumePreview")
   if (state.exportToImg) {
     await exportImagePDF(element)
@@ -244,8 +251,11 @@ async function exportImagePDF(element) {
 
     pdf.addImage(imgData, "PNG", 0, 0, PDF_CONFIG.PAGE_WIDTH, PDF_CONFIG.PAGE_HEIGHT)
     pdf.save(getPDFFilename())
+
+    loaderHide(); // <===== Hide loader on success
   } catch (error) {
     console.error("PDF export error:", error)
+    loaderHide(); // <===== Hide loader on error
     alert("Error exporting PDF. Please try again.")
   }
 }
@@ -290,8 +300,10 @@ async function exportSelectablePDF(element) {
     renderTextOnPDF(pdf, textData)
 
     pdf.save(getPDFFilename())
+    loaderHide(); // <===== Hide loader on success
   } catch (error) {
     console.error("Selectable PDF export error:", error)
+    loaderHide(); // <===== Hide loader on error
     if (clone) document.body.removeChild(clone)
     alert("Error exporting selectable PDF. Try with the export to image option.")
   }
@@ -301,6 +313,8 @@ async function exportSelectablePDF(element) {
  * Export configuration as JSON
  */
 function exportJSON() {
+  loaderShow();
+
   const dataStr = JSON.stringify(state, null, 2)
   const dataBlob = new Blob([dataStr], { type: "application/json" })
   const url = URL.createObjectURL(dataBlob)
@@ -310,4 +324,19 @@ function exportJSON() {
   link.click()
 
   URL.revokeObjectURL(url)
+  loaderHide();
+}
+
+// ============================= LOADER FUNCTIONS ==============================
+function loaderShow() {
+  loaderCount++;
+  loader.style.display = "block";
+}
+
+function loaderHide() {
+  loaderCount--;
+  if (loaderCount <= 0) {
+    loader.style.display = "none";
+    loaderCount = 0;
+  }
 }
