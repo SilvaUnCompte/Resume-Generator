@@ -33,6 +33,13 @@ function importJSON(event) {
         state.profilePhotoSize = 80
       }
 
+      if (state.profilePhotoRoundness === undefined) {
+        state.profilePhotoRoundness = 100
+      }
+
+      document.getElementById("profilePhotoRoundness").value = state.profilePhotoRoundness;
+      document.getElementById("profilePhotoRoundnessValue").textContent = `${state.profilePhotoRoundness}%`
+
       // Update form fields
       updateFormFields(state)
 
@@ -72,6 +79,9 @@ function updateFormFields(state) {
 
   document.getElementById("profilePhotoSize").value = state.profilePhotoSize || 80
   document.getElementById("profilePhotoSizeValue").textContent = `${state.profilePhotoSize || 80}px`
+
+  document.getElementById("profilePhotoRoundness").value = state.profilePhotoRoundness || 100
+  document.getElementById("profilePhotoRoundnessValue").textContent = `${state.profilePhotoRoundness || 100}%`
 
   // Options
   document.getElementById("showReference").checked = state.showReference || false

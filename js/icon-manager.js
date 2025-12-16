@@ -100,14 +100,17 @@ function updateProfilePhotoPreview() {
   const previewDiv = document.getElementById("profilePhotoPreview")
   const resetBtn = document.getElementById("profilePhotoResetBtn")
   const sizeLabel = document.getElementById("profilePhotoSizeLabel")
+  const roundnessLabel = document.getElementById("profilePhotoRoundnessLabel")
 
   if (state.profilePhoto) {
     previewDiv.innerHTML = `<img src="${state.profilePhoto}" alt="Profile photo">`
     resetBtn.style.display = "inline-block"
     sizeLabel.style.display = "flex"
+    roundnessLabel.style.display = "flex"
   } else {
     previewDiv.innerHTML = '<span class="no-photo">No photo</span>'
     resetBtn.style.display = "none"
     sizeLabel.style.display = "none"
+    roundnessLabel.style.display = "none"
   }
 }

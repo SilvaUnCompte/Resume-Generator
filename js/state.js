@@ -14,6 +14,7 @@ const state = {
   introduction: "",
   profilePhoto: null,
   profilePhotoSize: 80,
+  profilePhotoRoundness: 100,
   skills: [],
   interests: [],
   education: [],

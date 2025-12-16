@@ -120,7 +120,7 @@ function buildHeader() {
 
     return `
             <div class="resume-header" style="background-color: ${state.colors.headerBg}; color: ${state.colors.headerText};">
-                ${hasPhoto ? `<div class="resume-header-photo" style="width: ${photoSize}px; height: ${photoSize}px;"><img src="${state.profilePhoto}" alt="Profile photo"></div>` : ""}
+                ${hasPhoto ? `<div class="resume-header-photo" style="width: ${photoSize}px; height: ${photoSize}px;"><img src="${state.profilePhoto}" style="border-radius: ${state.profilePhotoRoundness/2}%" alt="Profile photo"></div>` : ""}
                 <div class="${headerLeftClass}">
                     ${state.firstName || state.lastName ? `<h1>${state.firstName} ${state.lastName}</h1>` : ""}
                     ${state.jobTitle ? `<h2>${state.jobTitle}</h2>` : ""}

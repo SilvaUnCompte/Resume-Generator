@@ -182,6 +182,12 @@ function loadEventListeners() {
     updatePreview()
   })
 
+  document.getElementById("profilePhotoRoundness").addEventListener("input", (e) => {
+    state.profilePhotoRoundness = Number.parseInt(e.target.value)
+    document.getElementById("profilePhotoRoundnessValue").textContent = `${state.profilePhotoRoundness}%`
+    updatePreview()
+  })
+
   // Import
   document.getElementById("importJson").addEventListener("change", importJSON)
 
