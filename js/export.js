@@ -77,16 +77,13 @@ function calculateTextLayout(element, x, y, width, styles) {
   let elementY = y * PDF_CONFIG.PX_TO_MM
   let elementHeight = element.getBoundingClientRect().height * PDF_CONFIG.PX_TO_MM
   let align = element.tagName === 'SPAN' ? 'left' : styles.textAlign
-  let centerVertically = false
 
   if (element.classList.contains('centered-export')) {
     align = 'center'
-    centerVertically = true
     elementX = elementX + (width / 2)
-    elementY = elementY + (elementHeight / 2)
   }
 
-  return { elementX, elementY, elementHeight, align, centerVertically }
+  return { elementX, elementY, elementHeight, align }
 }
 
 /**
@@ -137,7 +134,6 @@ function extractTextElements(clone) {
       color: originalColor,
       width: widthMm,
       align: layout.align,
-      centerVertically: layout.centerVertically,
       borderBottomWidth: borderBottomWidth * PDF_CONFIG.PX_TO_MM,
       borderBottomStyle: styles.borderBottomStyle,
       borderBottomColor: styles.borderBottomColor,
@@ -169,7 +165,7 @@ function renderTextOnPDF(pdf, textData) {
     pdf.setTextColor(rgb[0], rgb[1], rgb[2])
 
     // Calculate Y position (adjust for centered vs normal text)
-    const textY = item.centerVertically ? item.y : item.y + item.fontSize * PDF_CONFIG.FONT_BASELINE_OFFSET
+    const textY = item.y + item.fontSize * PDF_CONFIG.FONT_BASELINE_OFFSET
 
     // Add text with proper alignment
     const textOptions = {

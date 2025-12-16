@@ -149,8 +149,8 @@ function buildIntro(introSize) {
   return state.introduction
     ? `
         <div class="resume-intro-container" style="background-color: ${state.colors.introBg};"> 
-          <div class="resume-intro centered-export" style="color: ${state.colors.introText}; font-size: ${introSize}px;">
-            ${nl2br(state.introduction)}
+          <div class="resume-intro" style="color: ${state.colors.introText}; font-size: ${introSize}px;">
+            <p class="centered-export">${nl2br(state.introduction)}</p>
           </div>
         </div>
     `
@@ -330,7 +330,11 @@ function buildExperiences(sectionTitleSize, labelSize, descriptionSize, t) {
 function buildFooter(t) {
   return state.showReference
     ? `
-        <div class="resume-footer centered-export" style="background-color: ${state.colors.introBg}; color: ${state.colors.introText};">${t.reference}</div>
+      <div class="resume-footer-container" style="background-color: ${state.colors.introBg};"> 
+        <div class="resume-footer" style="color: ${state.colors.introText};">
+          <p class="centered-export">${t.reference}</p>
+        </div>
+      </div>
     `
     : ""
 }
