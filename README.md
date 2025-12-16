@@ -2,7 +2,7 @@
 
 Browser-based resume builder (HTML/CSS/JS only) with live preview, PDF and JSON export, and English/French support.
 
-![illustration](images/illustration.png)
+![illustration](images/illustrationV1.png)
 
 https://silvauncompte.github.io/Resume-Generator/
 
