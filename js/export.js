@@ -7,7 +7,6 @@ const PDF_CONFIG = {
   PX_TO_MM: 0.264583,      // 96 DPI conversion
   PX_TO_PT: 0.75,          // Font size conversion
   FONT_BASELINE_OFFSET: 0.352778, // Vertical text adjustment
-  FONT_WIDTH_MARGIN: 0.6,  // Width margin for Helvetica vs Arial difference
   PAGE_WIDTH: 210,          // A4 width in mm
   PAGE_HEIGHT: 297,         // A4 height in mm
   FONT_FAMILY: 'helvetica', // Force font family for all text
@@ -115,7 +114,7 @@ function extractTextElements(clone) {
 
     const x = rect.left - cloneRect.left
     const y = rect.top - cloneRect.top
-    const widthMm = rect.width * PDF_CONFIG.PX_TO_MM + PDF_CONFIG.FONT_WIDTH_MARGIN
+    const widthMm = rect.width * PDF_CONFIG.PX_TO_MM
 
     // Get border styling
     const borderBottomWidth = parseFloat(styles.borderBottomWidth) || 0

@@ -65,8 +65,8 @@ function updatePreview() {
   const introHTML = buildIntro(introSize)
   const skillsHTML = buildSkills(sectionTitleSize, subsectionTitleSize, skillNameSize, skillIconSize, t)
   const interestsHTML = buildInterests(sectionTitleSize, interestLabelSize, interestDescSize, interestIconSize, t)
-  const educationHTML = buildEducations(sectionTitleSize, labelSize, descriptionSize, t)
-  const experienceHTML = buildExperiences(sectionTitleSize, labelSize, descriptionSize, t)
+  const educationHTML = buildTimelineSection(state.education, sectionTitleSize, labelSize, descriptionSize, t.education)
+  const experienceHTML = buildTimelineSection(state.experience, sectionTitleSize, labelSize, descriptionSize, t.experience)
   const footerHTML = buildFooter(t)
 
   // Separator line
@@ -239,89 +239,46 @@ function buildInterests(sectionTitleSize, interestLabelSize, interestDescSize, i
 }
 
 /**
- * Build education HTML
+ * Build timeline HTML
  */
-function buildEducations(sectionTitleSize, labelSize, descriptionSize, t) {
-  const visibleEducation = state.education.filter((e) => e.visible && e.label)
+function buildTimelineSection(items, sectionTitleSize, labelSize, descriptionSize, title) {
+  const visibleItems = items.filter((e) => e.visible && e.label);
 
-  if (visibleEducation.length === 0) return ""
+  if (visibleItems.length === 0) return "";
 
-  const timelineImages = getTimelineImages()
-  const iconPosition = state.timelineIconPosition || "before-label"
+  const timelineImages = getTimelineImages();
+  const iconPosition = state.timelineIconPosition || "before-label";
 
-  const items = visibleEducation
-    .map((edu, index) => {
-      const isLast = index === visibleEducation.length - 1
-      const iconClassPlace = iconClassMap[iconPosition] || "place-icon-left"
-      const contentIcon = edu.icon ? `<img src="${edu.icon}" class="timeline-item-icon inline" alt="">` : iconPosition === "before-label" ? "" : "<div></div>"
-      const contentLabel = `<h4 style="font-size: ${labelSize}px;">${edu.label}</h4>`
+  const timelineItems = visibleItems
+    .map((item, index) => {
+      const isLast = index === visibleItems.length - 1;
+      const iconClassPlace = iconClassMap[iconPosition] || "place-icon-left";
+      const contentIcon = item.icon ? `<img src="${item.icon}" class="timeline-item-icon inline" alt="">` : iconPosition === "before-label" ? "" : "<div></div>";
+      const contentLabel = `<h4 style="font-size: ${labelSize}px;">${item.label}</h4>`;
 
       return `
-            <div class="timeline-item" data-id="edu-${edu.id}">
+            <div class="timeline-item" data-id="${title.toLowerCase()}-${item.id}">
               <div class="timeline-icon">
                 <img src="${timelineImages.bullet}" class="timeline-bullet" alt="">
                 ${!isLast ? `<img src="${timelineImages.dash}" class="timeline-dash" alt="">` : ""}
               </div>
-                <div class="timeline-content">
-                    <div class="${iconClassPlace}">
-                        ${contentIcon} ${contentLabel}
-                    </div>
-                    ${edu.description ? `<p style="font-size: ${descriptionSize}px;"><span>${nl2br(edu.description)}</span></p>` : ""}
+              <div class="timeline-content">
+                <div class="${iconClassPlace}">
+                    ${contentIcon} ${contentLabel}
                 </div>
-            </div>
-        `
-    })
-    .join("")
-
-  return `
-        <div class="resume-section">
-            <h3 style="font-size: ${sectionTitleSize}px;">${t.education}</h3>
-            ${items}
-        </div>
-    `
-}
-
-/**
- * Build experience HTML
- */
-function buildExperiences(sectionTitleSize, labelSize, descriptionSize, t) {
-  const visibleExperience = state.experience.filter((e) => e.visible && e.label)
-
-  if (visibleExperience.length === 0) return ""
-
-  const timelineImages = getTimelineImages()
-  const iconPosition = state.timelineIconPosition || "before-label"
-
-  const items = visibleExperience
-    .map((exp, index) => {
-      const isLast = index === visibleExperience.length - 1
-      const iconClassPlace = iconClassMap[iconPosition] || "place-icon-left"
-      const contentIcon = exp.icon ? `<img src="${exp.icon}" class="timeline-item-icon inline" alt="">` : iconPosition === "before-label" ? "" : "<div></div>"
-      const contentLabel = `<h4 style="font-size: ${labelSize}px;">${exp.label}</h4>`
-
-      return `
-            <div class="timeline-item" data-id="exp-${exp.id}">
-              <div class="timeline-icon">
-                <img src="${timelineImages.bullet}" class="timeline-bullet" alt="">
-                ${!isLast ? `<img src="${timelineImages.dash}" class="timeline-dash" alt="">` : ""}
+                ${item.description ? `<p style="font-size: ${descriptionSize}px; white-space: pre-wrap; word-wrap: break-word;">${item.description}</p>` : ""}
               </div>
-                <div class="timeline-content">
-                    <div class="${iconClassPlace}">
-                        ${contentIcon} ${contentLabel}
-                    </div>
-                    ${exp.description ? `<p style="font-size: ${descriptionSize}px;">${nl2br(exp.description)}</p>` : ""}
-                </div>
             </div>
-        `
+        `;
     })
-    .join("")
+    .join("");
 
   return `
         <div class="resume-section">
-            <h3 style="font-size: ${sectionTitleSize}px;">${t.experience}</h3>
-            ${items}
+            <h3 style="font-size: ${sectionTitleSize}px;">${title}</h3>
+            ${timelineItems}
         </div>
-    `
+    `;
 }
 
 /**
