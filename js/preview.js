@@ -112,11 +112,16 @@ function updatePreview() {
 function buildHeader() {
   const hasContactInfo = state.email || state.phone || state.address || state.linkedin
   const linkedInDisplay = state.linkedin ? state.linkedin.replace(/^https?:\/\//, "") : ""
+  const hasPhoto = !!state.profilePhoto
+  const photoSize = state.profilePhotoSize || 80
 
-  if (state.firstName || state.lastName || state.jobTitle || hasContactInfo) {
+  if (state.firstName || state.lastName || state.jobTitle || hasContactInfo || hasPhoto) {
+    const headerLeftClass = hasPhoto ? "resume-header-left with-photo" : "resume-header-left"
+
     return `
             <div class="resume-header" style="background-color: ${state.colors.headerBg}; color: ${state.colors.headerText};">
-                <div class="resume-header-left">
+                ${hasPhoto ? `<div class="resume-header-photo" style="width: ${photoSize}px; height: ${photoSize}px;"><img src="${state.profilePhoto}" alt="Profile photo"></div>` : ""}
+                <div class="${headerLeftClass}">
                     ${state.firstName || state.lastName ? `<h1>${state.firstName} ${state.lastName}</h1>` : ""}
                     ${state.jobTitle ? `<h2>${state.jobTitle}</h2>` : ""}
                 </div>

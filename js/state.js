@@ -12,6 +12,8 @@ const state = {
   linkedin: "",
   address: "",
   introduction: "",
+  profilePhoto: null,
+  profilePhotoSize: 80,
   skills: [],
   interests: [],
   education: [],

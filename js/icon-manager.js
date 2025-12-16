@@ -2,6 +2,10 @@
    ICONS MANAGEMENT - Timeline images upload and reset
    ==================================================== */
 
+
+   
+// ============================= Timeline images management =============================
+
 function uploadTimelineImage(type, file) {
   if (!file) return
 
@@ -36,4 +40,40 @@ function updateTimelineImagePreviews() {
 function updateTimelineIconPosition(value) {
   state.timelineIconPosition = value
   updatePreview()
+}
+
+// ============================= Profile photo management =============================
+
+function uploadProfilePhoto(file) {
+  if (!file) return
+
+  const reader = new FileReader()
+  reader.onload = (e) => {
+    state.profilePhoto = e.target.result
+    updateProfilePhotoPreview()
+    updatePreview()
+  }
+  reader.readAsDataURL(file)
+}
+
+function resetProfilePhoto() {
+  state.profilePhoto = null
+  updateProfilePhotoPreview()
+  updatePreview()
+}
+
+function updateProfilePhotoPreview() {
+  const previewDiv = document.getElementById("profilePhotoPreview")
+  const resetBtn = document.getElementById("profilePhotoResetBtn")
+  const sizeLabel = document.getElementById("profilePhotoSizeLabel")
+
+  if (state.profilePhoto) {
+    previewDiv.innerHTML = `<img src="${state.profilePhoto}" alt="Profile photo">`
+    resetBtn.style.display = "inline-block"
+    sizeLabel.style.display = "flex"
+  } else {
+    previewDiv.innerHTML = '<span class="no-photo">No photo</span>'
+    resetBtn.style.display = "none"
+    sizeLabel.style.display = "none"
+  }
 }

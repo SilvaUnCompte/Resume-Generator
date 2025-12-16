@@ -172,8 +172,19 @@ function loadEventListeners() {
     uploadTimelineImage("dash", e.target.files[0])
   })
 
+  document.getElementById("profilePhotoInput").addEventListener("change", (e) => {
+    uploadProfilePhoto(e.target.files[0])
+  })
+
+  document.getElementById("profilePhotoSize").addEventListener("input", (e) => {
+    state.profilePhotoSize = Number.parseInt(e.target.value)
+    document.getElementById("profilePhotoSizeValue").textContent = `${state.profilePhotoSize}px`
+    updatePreview()
+  })
+
   // Import
   document.getElementById("importJson").addEventListener("change", importJSON)
 
   updateTimelineImagePreviews()
+  updateProfilePhotoPreview()
 }

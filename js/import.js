@@ -22,6 +22,17 @@ function importJSON(event) {
         state.timelineImages = { bullet: null, dash: null }
       }
 
+      if (!state.timelineIconPosition) state.timelineIconPosition = "before-label";
+      document.getElementById("timelineIconPosition").value = state.timelineIconPosition;
+
+      if (state.profilePhoto === undefined) {
+        state.profilePhoto = null
+      }
+
+      if (state.profilePhotoSize === undefined) {
+        state.profilePhotoSize = 80
+      }
+
       // Update form fields
       updateFormFields(state)
 
@@ -31,6 +42,7 @@ function importJSON(event) {
       rebuildEducation()
       rebuildExperience()
       updateTimelineImagePreviews()
+      updateProfilePhotoPreview()
 
       updatePreview()
 
@@ -57,6 +69,9 @@ function updateFormFields(state) {
   document.getElementById("linkedin").value = state.linkedin || ""
   document.getElementById("address").value = state.address || ""
   document.getElementById("introduction").value = state.introduction || ""
+
+  document.getElementById("profilePhotoSize").value = state.profilePhotoSize || 80
+  document.getElementById("profilePhotoSizeValue").textContent = `${state.profilePhotoSize || 80}px`
 
   // Options
   document.getElementById("showReference").checked = state.showReference || false

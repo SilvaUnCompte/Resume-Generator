@@ -25,6 +25,35 @@
   flex-shrink: 0;
 }
 
+/* Profile photo in header */
+.resume-header-photo {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+
+.resume-header-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid currentColor;
+}
+
+.resume-header-left {
+  flex: 1;
+}
+
+/* Reduce font size when photo is present */
+.resume-header-left.with-photo h1 {
+  font-size: 36px;
+}
+
+.resume-header-left.with-photo h2 {
+  font-size: 18px;
+}
+
 .resume-header-left h1 {
   font-size: 48px;
   font-weight: bold;

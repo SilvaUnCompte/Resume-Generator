@@ -92,6 +92,25 @@
                 <!-- Personal Info Section -->
                 <div class="config-section">
                     <h3>Personal Information</h3>
+                    <!-- Add profile photo upload -->
+                    <div class="profile-photo-row">
+                        <span class="profile-photo-label">Profile Photo:</span>
+                        <div class="profile-photo-preview" id="profilePhotoPreview">
+                            <span class="no-photo">No photo</span>
+                        </div>
+                        <label class="image-upload-btn">
+                            <input type="file" accept="image/*" id="profilePhotoInput" hidden>
+                            Choose
+                        </label>
+                        <button class="reset-timeline-btn" id="profilePhotoResetBtn" style="display: none;"
+                            onclick="resetProfilePhoto()">Remove</button>
+                    </div>
+                    <!-- Added slider for profile photo size -->
+                    <label class="slider-label" id="profilePhotoSizeLabel" style="display: none;">
+                        Photo Size:
+                        <input type="range" id="profilePhotoSize" min="40" max="150" value="80" step="5">
+                        <span id="profilePhotoSizeValue">80px</span>
+                    </label>
                     <input type="text" id="firstName" placeholder="First Name">
                     <input type="text" id="lastName" placeholder="Last Name">
                     <input type="text" id="jobTitle" placeholder="Job Title">
@@ -210,7 +229,10 @@
 
                 <!-- Export buttons moved to config panel, at the bottom, in a row -->
                 <div class="config-section export-section">
-                    <h3>Export</h3>
+                    <div class="inline">
+                        <h3>Export</h3>
+                        <img src="images/load.gif" alt="loading" id="exportLoader" class="loader" style="display:none;">
+                    </div>
                     <div class="export-buttons">
                         <button class="action-btn" onclick="exportPDF()">Export PDF</button>
                         <button class="action-btn" onclick="exportJSON()">Export JSON</button>
