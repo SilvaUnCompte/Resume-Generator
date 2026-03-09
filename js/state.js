@@ -9,8 +9,13 @@ const state = {
   jobTitle: "",
   email: "",
   phone: "",
-  linkedin: "",
-  website: "",
+  websites: [
+    {
+      id: 1,
+      url: "",
+      icon: "globe",
+    },
+  ],
   address: "",
   introduction: "",
   profilePhoto: null,

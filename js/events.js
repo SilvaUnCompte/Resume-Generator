@@ -19,6 +19,74 @@ function toggleColumn2ColorPickers(hide) {
   }
 }
 
+function createWebsiteEntry(url = "", icon = "globe") {
+  return {
+    id: Date.now() + Math.floor(Math.random() * 1000),
+    url,
+    icon,
+  }
+}
+
+function ensureWebsiteList() {
+  if (!Array.isArray(state.websites)) {
+    state.websites = []
+  }
+  if (state.websites.length === 0) {
+    state.websites.push(createWebsiteEntry())
+  }
+}
+
+function renderWebsiteRows() {
+  const container = document.getElementById("websitesContainer")
+  if (!container) return
+
+  ensureWebsiteList()
+  container.innerHTML = ""
+
+  state.websites.forEach((entry) => {
+    const row = document.createElement("div")
+    row.className = "input-row website-row"
+    row.dataset.websiteId = String(entry.id)
+
+    const input = document.createElement("input")
+    input.type = "text"
+    input.value = entry.url || ""
+    input.placeholder = "Website"
+    input.className = "website-url-input"
+
+    const select = document.createElement("select")
+    select.className = "website-icon-select"
+    const options = [
+      ["globe", "Globe"],
+      ["link", "Link"],
+      ["monitor", "Monitor"],
+      ["github", "GitHub"],
+      ["linkedin", "LinkedIn"],
+    ]
+
+    options.forEach(([value, label]) => {
+      const opt = document.createElement("option")
+      opt.value = value
+      opt.textContent = label
+      if ((entry.icon || "globe") === value) {
+        opt.selected = true
+      }
+      select.appendChild(opt)
+    })
+
+    const removeBtn = document.createElement("button")
+    removeBtn.type = "button"
+    removeBtn.className = "remove-website-btn"
+    removeBtn.textContent = "×"
+    removeBtn.title = "Remove website line"
+
+    row.appendChild(input)
+    row.appendChild(select)
+    row.appendChild(removeBtn)
+    container.appendChild(row)
+  })
+}
+
 /**
  * Load all event listeners
  */
@@ -49,13 +117,42 @@ function loadEventListeners() {
     updatePreview()
   })
 
-  document.getElementById("linkedin").addEventListener("input", (e) => {
-    state.linkedin = e.target.value
+  ensureWebsiteList()
+  renderWebsiteRows()
+
+  document.getElementById("addWebsiteBtn").addEventListener("click", () => {
+    state.websites.push(createWebsiteEntry())
+    renderWebsiteRows()
     updatePreview()
   })
 
-    document.getElementById("website").addEventListener("input", (e) => {
-    state.website = e.target.value
+  document.getElementById("websitesContainer").addEventListener("input", (e) => {
+    if (!e.target.classList.contains("website-url-input")) return
+    const row = e.target.closest(".website-row")
+    const websiteId = Number.parseInt(row.dataset.websiteId, 10)
+    const item = state.websites.find((w) => w.id === websiteId)
+    if (!item) return
+    item.url = e.target.value
+    updatePreview()
+  })
+
+  document.getElementById("websitesContainer").addEventListener("change", (e) => {
+    if (!e.target.classList.contains("website-icon-select")) return
+    const row = e.target.closest(".website-row")
+    const websiteId = Number.parseInt(row.dataset.websiteId, 10)
+    const item = state.websites.find((w) => w.id === websiteId)
+    if (!item) return
+    item.icon = e.target.value
+    updatePreview()
+  })
+
+  document.getElementById("websitesContainer").addEventListener("click", (e) => {
+    if (!e.target.classList.contains("remove-website-btn")) return
+    const row = e.target.closest(".website-row")
+    const websiteId = Number.parseInt(row.dataset.websiteId, 10)
+    state.websites = state.websites.filter((w) => w.id !== websiteId)
+    ensureWebsiteList()
+    renderWebsiteRows()
     updatePreview()
   })
 

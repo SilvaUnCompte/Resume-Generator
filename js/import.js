@@ -37,6 +37,22 @@ function importJSON(event) {
         state.profilePhotoRoundness = 100
       }
 
+      if (!Array.isArray(state.websites)) {
+        state.websites = []
+      }
+
+      state.websites = state.websites
+        .filter((item) => item && typeof item.url === "string")
+        .map((item, index) => ({
+          id: item.id || Date.now() + index,
+          url: item.url,
+          icon: item.icon || "globe",
+        }))
+
+      if (state.websites.length === 0) {
+        state.websites = [{ id: Date.now(), url: "", icon: "globe" }]
+      }
+
       document.getElementById("profilePhotoRoundness").value = state.profilePhotoRoundness;
       document.getElementById("profilePhotoRoundnessValue").textContent = `${state.profilePhotoRoundness}%`
 
@@ -73,10 +89,12 @@ function updateFormFields(state) {
   document.getElementById("jobTitle").value = state.jobTitle || ""
   document.getElementById("email").value = state.email || ""
   document.getElementById("phone").value = state.phone || ""
-  document.getElementById("linkedin").value = state.linkedin || ""
-  document.getElementById("website").value = state.website || ""
   document.getElementById("address").value = state.address || ""
   document.getElementById("introduction").value = state.introduction || ""
+
+  if (typeof renderWebsiteRows === "function") {
+    renderWebsiteRows()
+  }
 
   document.getElementById("profilePhotoSize").value = state.profilePhotoSize || 80
   document.getElementById("profilePhotoSizeValue").textContent = `${state.profilePhotoSize || 80}px`

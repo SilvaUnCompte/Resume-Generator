@@ -9,7 +9,19 @@ const ICONS = {
   email: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='5' width='18' height='14' rx='2'/><path d='m3 7 9 6 9-6'/></svg>",
   phone: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.1 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z'/></svg>",
   linkedin: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z'/><rect x='2' y='9' width='4' height='12'/><circle cx='4' cy='4' r='2'/></svg>",
-  // website: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84
+  websiteGlobe: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='10'/><path d='M2 12h20'/><path d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/></svg>",
+  websiteLink: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/><path d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/></svg>",
+  websiteMonitor: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='3' width='20' height='14' rx='2'/><path d='M8 21h8'/><path d='M12 17v4'/></svg>",
+  websiteGithub: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M9 18c-4.51 1.4-4.51-2.5-6-3'/><path d='M15 22v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7a5.44 5.44 0 0 0-1.5-3.75 5.07 5.07 0 0 0-.09-3.77s-1.18-.35-3.91 1.48a13.38 13.38 0 0 0-7 0C5.27.65 4.09 1 4.09 1a5.07 5.07 0 0 0-.09 3.77A5.44 5.44 0 0 0 2.5 8.53c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 8 18.13V22'/></svg>",
+}
+
+function getWebsiteIconByKey(iconKey) {
+  const key = iconKey || "globe"
+  if (key === "linkedin") return ICONS.linkedin
+  if (key === "github") return ICONS.websiteGithub
+  if (key === "link") return ICONS.websiteLink
+  if (key === "monitor") return ICONS.websiteMonitor
+  return ICONS.websiteGlobe
 }
 
 const DEFAULT_TIMELINE_IMAGES = {
@@ -111,9 +123,10 @@ function updatePreview() {
  * Build header HTML
  */
 function buildHeader() {
-  const hasContactInfo = state.email || state.phone || state.address || state.linkedin || state.website
-  const linkedInDisplay = state.linkedin ? state.linkedin.replace(/^https?:\/\//, "") : ""
-  const websiteDisplay = state.website ? state.website.replace(/^https?:\/\//, "") : ""
+  const websiteLinks = Array.isArray(state.websites)
+    ? state.websites.filter((item) => item.url && item.url.trim())
+    : []
+  const hasContactInfo = state.email || state.phone || state.address || websiteLinks.length > 0
   const hasPhoto = !!state.profilePhoto
   const photoSize = state.profilePhotoSize || 80
 
@@ -133,8 +146,15 @@ function buildHeader() {
                         ${state.address ? `<div><img src="${ICONS.address}" class="header-icon" alt=""><span>${state.address}</span></div>` : ""}
                         ${state.email ? `<div><img src="${ICONS.email}" class="header-icon" alt=""><span>${state.email}</span></div>` : ""}
                         ${state.phone ? `<div><img src="${ICONS.phone}" class="header-icon" alt=""><span>${state.phone}</span></div>` : ""}
-                        ${state.linkedin ? `<div><img src="${ICONS.linkedin}" class="header-icon" alt=""><a href="${state.linkedin}" target="_blank" rel="noopener noreferrer"><span>${linkedInDisplay}</span></a></div>` : ""}
-                        ${state.website ? `<div><img src="${ICONS.website}" class="header-icon" alt=""><a href="${state.website}" target="_blank" rel="noopener noreferrer"><span>${websiteDisplay}</span></a></div>` : ""}
+                        ${websiteLinks
+          .map((item) => {
+            const cleanUrl = item.url.trim()
+            const display = cleanUrl.replace(/^https?:\/\//, "")
+            const href = /^https?:\/\//.test(cleanUrl) ? cleanUrl : `https://${cleanUrl}`
+            const icon = getWebsiteIconByKey(item.icon)
+            return `<div><img src="${icon}" class="header-icon" alt=""><a href="${href}" target="_blank" rel="noopener noreferrer"><span>${display}</span></a></div>`
+          })
+          .join("")}
                     </div>
                 `
         : ""
