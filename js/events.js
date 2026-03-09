@@ -54,6 +54,11 @@ function loadEventListeners() {
     updatePreview()
   })
 
+    document.getElementById("website").addEventListener("input", (e) => {
+    state.website = e.target.value
+    updatePreview()
+  })
+
   document.getElementById("address").addEventListener("input", (e) => {
     state.address = e.target.value
     updatePreview()

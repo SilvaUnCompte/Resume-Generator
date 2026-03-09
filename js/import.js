@@ -74,6 +74,7 @@ function updateFormFields(state) {
   document.getElementById("email").value = state.email || ""
   document.getElementById("phone").value = state.phone || ""
   document.getElementById("linkedin").value = state.linkedin || ""
+  document.getElementById("website").value = state.website || ""
   document.getElementById("address").value = state.address || ""
   document.getElementById("introduction").value = state.introduction || ""
 

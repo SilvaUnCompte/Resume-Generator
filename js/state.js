@@ -10,6 +10,7 @@ const state = {
   email: "",
   phone: "",
   linkedin: "",
+  website: "",
   address: "",
   introduction: "",
   profilePhoto: null,

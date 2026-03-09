@@ -9,6 +9,7 @@ const ICONS = {
   email: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='5' width='18' height='14' rx='2'/><path d='m3 7 9 6 9-6'/></svg>",
   phone: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.1 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z'/></svg>",
   linkedin: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z'/><rect x='2' y='9' width='4' height='12'/><circle cx='4' cy='4' r='2'/></svg>",
+  // website: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84
 }
 
 const DEFAULT_TIMELINE_IMAGES = {
@@ -110,8 +111,9 @@ function updatePreview() {
  * Build header HTML
  */
 function buildHeader() {
-  const hasContactInfo = state.email || state.phone || state.address || state.linkedin
+  const hasContactInfo = state.email || state.phone || state.address || state.linkedin || state.website
   const linkedInDisplay = state.linkedin ? state.linkedin.replace(/^https?:\/\//, "") : ""
+  const websiteDisplay = state.website ? state.website.replace(/^https?:\/\//, "") : ""
   const hasPhoto = !!state.profilePhoto
   const photoSize = state.profilePhotoSize || 80
 
@@ -132,6 +134,7 @@ function buildHeader() {
                         ${state.email ? `<div><img src="${ICONS.email}" class="header-icon" alt=""><span>${state.email}</span></div>` : ""}
                         ${state.phone ? `<div><img src="${ICONS.phone}" class="header-icon" alt=""><span>${state.phone}</span></div>` : ""}
                         ${state.linkedin ? `<div><img src="${ICONS.linkedin}" class="header-icon" alt=""><a href="${state.linkedin}" target="_blank" rel="noopener noreferrer"><span>${linkedInDisplay}</span></a></div>` : ""}
+                        ${state.website ? `<div><img src="${ICONS.website}" class="header-icon" alt=""><a href="${state.website}" target="_blank" rel="noopener noreferrer"><span>${websiteDisplay}</span></a></div>` : ""}
                     </div>
                 `
         : ""
