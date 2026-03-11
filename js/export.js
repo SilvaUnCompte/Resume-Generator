@@ -26,6 +26,23 @@ function rgbToArray(rgbString) {
 }
 
 /**
+ * Normalize URL for PDF link annotations.
+ * Accept only http/https links to avoid invalid or unsafe protocols.
+ * @param {string} rawUrl - URL from DOM href attribute
+ * @returns {string|null} Sanitized URL or null when invalid
+ */
+function normalizePdfUrl(rawUrl) {
+  if (!rawUrl || typeof rawUrl !== 'string') return null
+  const trimmedUrl = rawUrl.trim()
+  if (!trimmedUrl) return null
+
+  const withProtocol = /^https?:\/\//i.test(trimmedUrl) ? trimmedUrl : `https://${trimmedUrl}`
+  if (!/^https?:\/\//i.test(withProtocol)) return null
+
+  return withProtocol
+}
+
+/**
  * Clone and prepare resume element for export
  * @param {HTMLElement} element - Resume element to clone
  * @returns {HTMLElement} Prepared clone
@@ -146,6 +163,34 @@ function extractTextElements(clone) {
 }
 
 /**
+ * Extract clickable link areas from cloned resume.
+ * @param {HTMLElement} clone - Cloned resume element
+ * @returns {Object[]} Array of PDF link annotations data
+ */
+function extractLinkElements(clone) {
+  const anchors = clone.querySelectorAll('a[href]')
+  const cloneRect = clone.getBoundingClientRect()
+  const linkData = []
+
+  anchors.forEach((anchor) => {
+    const href = normalizePdfUrl(anchor.getAttribute('href') || anchor.href)
+    if (!href) return
+
+    const rect = anchor.getBoundingClientRect()
+    if (rect.width <= 0 || rect.height <= 0) return
+
+    const x = (rect.left - cloneRect.left) * PDF_CONFIG.PX_TO_MM
+    const y = (rect.top - cloneRect.top) * PDF_CONFIG.PX_TO_MM
+    const width = rect.width * PDF_CONFIG.PX_TO_MM
+    const height = rect.height * PDF_CONFIG.PX_TO_MM
+
+    linkData.push({ x, y, width, height, href })
+  })
+
+  return linkData
+}
+
+/**
  * Render text elements onto PDF
  * @param {jsPDF} pdf - jsPDF instance
  * @param {Object[]} textData - Array of text element data
@@ -190,7 +235,7 @@ function renderTextOnPDF(pdf, textData) {
  * @returns {string} Filename with first and last name
  */
 function getPDFFilename() {
-  return `${state.firstName} ${state.lastName} Resume.pdf`
+  return `${state.firstName} ${state.lastName} Resume - ${new Date().getFullYear()} ${state.language}.pdf`
 }
 
 // ============================== MAIN EXPORT FUNCTIONS ==============================
@@ -222,6 +267,8 @@ async function exportImagePDF(element) {
     const clone = prepareCloneForExport(element)
     document.body.appendChild(clone)
 
+    const linkData = extractLinkElements(clone)
+
     const canvas = await window.html2canvas(clone, {
       scale: 2,
       useCORS: true,
@@ -241,6 +288,7 @@ async function exportImagePDF(element) {
     })
 
     pdf.addImage(imgData, "PNG", 0, 0, PDF_CONFIG.PAGE_WIDTH, PDF_CONFIG.PAGE_HEIGHT)
+    renderLinksOnPDF(pdf, linkData)
     pdf.save(getPDFFilename())
 
     loaderHide(); // <===== Hide loader on success
@@ -263,6 +311,7 @@ async function exportSelectablePDF(element) {
     document.body.appendChild(clone)
 
     const textData = extractTextElements(clone)
+    const linkData = extractLinkElements(clone)
 
     // Step 2: Render visual background with transparent text
     const canvas = await window.html2canvas(clone, {
@@ -289,6 +338,7 @@ async function exportSelectablePDF(element) {
 
     // Step 4: Render selectable text on top
     renderTextOnPDF(pdf, textData)
+    renderLinksOnPDF(pdf, linkData)
 
     pdf.save(getPDFFilename())
     loaderHide(); // <===== Hide loader on success
@@ -311,7 +361,7 @@ function exportJSON() {
   const url = URL.createObjectURL(dataBlob)
   const link = document.createElement("a")
   link.href = url
-  link.download = "resume-data.json"
+  link.download = `${state.firstName}-${state.lastName}-resume-data-${state.language}.json`
   link.click()
 
   URL.revokeObjectURL(url)
@@ -330,4 +380,15 @@ function loaderHide() {
     loader.style.display = "none";
     loaderCount = 0;
   }
+}
+
+/**
+ * Add clickable link annotations to PDF.
+ * @param {jsPDF} pdf - jsPDF instance
+ * @param {Object[]} links - Link annotation data
+ */
+function renderLinksOnPDF(pdf, links) {
+  links.forEach((item) => {
+    pdf.link(item.x, item.y, item.width, item.height, { url: item.href })
+  })
 }
