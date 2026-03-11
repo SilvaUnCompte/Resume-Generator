@@ -150,6 +150,7 @@ function extractTextElements(clone) {
       color: originalColor,
       width: widthMm,
       align: layout.align,
+      noWrap: styles.whiteSpace === 'nowrap',
       borderBottomWidth: borderBottomWidth * PDF_CONFIG.PX_TO_MM,
       borderBottomStyle: styles.borderBottomStyle,
       borderBottomColor: styles.borderBottomColor,
@@ -213,9 +214,11 @@ function renderTextOnPDF(pdf, textData) {
 
     // Add text with proper alignment
     const textOptions = {
-      maxWidth: item.width,
       align: item.align === 'center' ? 'center' : item.align === 'right' ? 'right' : 'left',
     }
+
+    // Preserve CSS no-wrap behavior for elements like skill names.
+    if (!item.noWrap) { textOptions.maxWidth = item.width }
 
     pdf.text(item.text, item.x, textY, textOptions)
 
