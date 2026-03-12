@@ -283,14 +283,14 @@ async function exportImagePDF(element) {
 
     document.body.removeChild(clone)
 
-    const imgData = canvas.toDataURL("image/png", 1.0)
+    const imgData = canvas.toDataURL("image/jpeg", 1.0)
     const pdf = new window.jspdf.jsPDF({
       orientation: "portrait",
       unit: "mm",
       format: "a4",
     })
 
-    pdf.addImage(imgData, "PNG", 0, 0, PDF_CONFIG.PAGE_WIDTH, PDF_CONFIG.PAGE_HEIGHT)
+    pdf.addImage(imgData, "JPEG", 0, 0, PDF_CONFIG.PAGE_WIDTH, PDF_CONFIG.PAGE_HEIGHT)
     renderLinksOnPDF(pdf, linkData)
     pdf.save(getPDFFilename())
 
@@ -330,14 +330,14 @@ async function exportSelectablePDF(element) {
     clone = null
 
     // Step 3: Create PDF with image and text layers
-    const imgData = canvas.toDataURL("image/png", 1.0)
+    const imgData = canvas.toDataURL("image/jpeg", 1.0)
     const pdf = new window.jspdf.jsPDF({
       orientation: "portrait",
       unit: "mm",
       format: "a4",
     })
 
-    pdf.addImage(imgData, "PNG", 0, 0, PDF_CONFIG.PAGE_WIDTH, PDF_CONFIG.PAGE_HEIGHT)
+    pdf.addImage(imgData, "JPEG", 0, 0, PDF_CONFIG.PAGE_WIDTH, PDF_CONFIG.PAGE_HEIGHT)
 
     // Step 4: Render selectable text on top
     renderTextOnPDF(pdf, textData)
