@@ -17,6 +17,10 @@ function addInterest() {
 
   itemDiv.innerHTML = `
         <button class="remove-btn" onclick="removeInterest(${id})">Remove</button>
+      <div class="reorder-buttons">
+        <button class="reorder-btn" onclick="moveInterest(${id}, -1)" title="Move up">&#9650;</button>
+        <button class="reorder-btn" onclick="moveInterest(${id}, 1)" title="Move down">&#9660;</button>
+      </div>
         <div class="visible-checkbox">
             <input type="checkbox" id="interest-visible-${id}" checked onchange="updateInterestVisible(${id}, this.checked)">
             <label for="interest-visible-${id}">Visible</label>
@@ -74,6 +78,21 @@ function updateInterestVisible(id, visible) {
   }
 }
 
+function moveInterest(id, direction) {
+  const index = state.interests.findIndex((i) => i.id === id)
+  if (index === -1) return
+
+  const newIndex = index + direction
+  if (newIndex < 0 || newIndex >= state.interests.length) return
+
+  const temp = state.interests[index]
+  state.interests[index] = state.interests[newIndex]
+  state.interests[newIndex] = temp
+
+  rebuildInterests()
+  updatePreview()
+}
+
 /**
  * Upload image for an interest
  * @param {number} id - Interest ID
@@ -113,6 +132,10 @@ function rebuildInterests() {
 
     itemDiv.innerHTML = `
             <button class="remove-btn" onclick="removeInterest(${interest.id})">Remove</button>
+        <div class="reorder-buttons">
+          <button class="reorder-btn" onclick="moveInterest(${interest.id}, -1)" title="Move up">&#9650;</button>
+          <button class="reorder-btn" onclick="moveInterest(${interest.id}, 1)" title="Move down">&#9660;</button>
+        </div>
             <div class="visible-checkbox">
                 <input type="checkbox" id="interest-visible-${interest.id}" ${interest.visible ? "checked" : ""} onchange="updateInterestVisible(${interest.id}, this.checked)">
                 <label for="interest-visible-${interest.id}">Visible</label>
