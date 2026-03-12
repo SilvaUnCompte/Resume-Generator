@@ -183,7 +183,33 @@ function moveSkillItem(groupId, itemId, direction) {
   if (index === -1) return
 
   const newIndex = index + direction
-  if (newIndex < 0 || newIndex >= group.items.length) return
+
+  // Move across groups when reaching list boundaries.
+  if (newIndex < 0) {
+    const groupIndex = state.skills.findIndex((g) => g.id === groupId)
+    if (groupIndex <= 0) return
+
+    const previousGroup = state.skills[groupIndex - 1]
+    const [item] = group.items.splice(index, 1)
+    previousGroup.items.push(item)
+
+    rebuildSkills()
+    updatePreview()
+    return
+  }
+
+  if (newIndex >= group.items.length) {
+    const groupIndex = state.skills.findIndex((g) => g.id === groupId)
+    if (groupIndex === -1 || groupIndex >= state.skills.length - 1) return
+
+    const nextGroup = state.skills[groupIndex + 1]
+    const [item] = group.items.splice(index, 1)
+    nextGroup.items.unshift(item)
+
+    rebuildSkills()
+    updatePreview()
+    return
+  }
 
   const temp = group.items[index]
   group.items[index] = group.items[newIndex]
